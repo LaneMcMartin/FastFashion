@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dag42htys0nry"]
+
+[ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
+[ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
+[ext_resource type="Script" path="res://level_manager/npc_handler.gd" id="3_s0gmi"]
+[ext_resource type="Script" path="res://level_manager/time_handler.gd" id="4_7hu5c"]
+[ext_resource type="PackedScene" uid="uid://deexf16n0hiju" path="res://time_bar/time_bar.tscn" id="4_whsmh"]
+
+[node name="LevelManager" type="Node2D"]
+script = ExtResource("1_fsc01")
+
+[node name="NPCHandler" type="Node2D" parent="."]
+script = ExtResource("3_s0gmi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Selector" parent="CanvasLayer" instance=ExtResource("2_ar0d8")]
+
+[node name="TimeHandler" type="Node2D" parent="."]
+script = ExtResource("4_7hu5c")
+
+[node name="Timer" type="Timer" parent="TimeHandler"]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="TimeHandler"]
+
+[node name="TimeBar" parent="TimeHandler/CanvasLayer" instance=ExtResource("4_whsmh")]
+step = 0.1
+
+[connection signal="timer_expired" from="TimeHandler" to="." method="_on_time_handler_timer_expired"]
+[connection signal="timeout" from="TimeHandler/Timer" to="TimeHandler" method="_on_timer_timeout"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc0jc2e4eao2h"]
+
+[ext_resource type="Script" path="res://character/character.gd" id="1_gjp6o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scjw4"]
+size = Vector2(17, 32)
+
+[node name="Character" type="Node2D" groups=["Character"]]
+script = ExtResource("1_gjp6o")
+roam_speed = 20.0
+roam_radius = 5.0
+roam_next_position = Vector2(200, 200)
+x_min = 16
+x_max = 624
+y_min = 16
+y_max = 344
+
+[node name="CompositeSprite" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="CompositeSprite"]
+hframes = 4
+region_rect = Rect2(0, 32, 64, 32)
+
+[node name="Pants" type="Sprite2D" parent="CompositeSprite"]
+hframes = 4
+
+[node name="Shirt" type="Sprite2D" parent="CompositeSprite"]
+hframes = 4
+
+[node name="Hat" type="Sprite2D" parent="CompositeSprite"]
+hframes = 4
+
+[node name="ClickableArea" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="ClickableArea"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_scjw4")
+
+[connection signal="input_event" from="ClickableArea" to="." method="_on_clickable_area_input_event"]

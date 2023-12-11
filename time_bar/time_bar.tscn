@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://deexf16n0hiju"]
+
+[ext_resource type="Texture2D" uid="uid://ccbl6ro6hyoy5" path="res://time_bar/time_bar_bottom.tres" id="1_4gt34"]
+[ext_resource type="Texture2D" uid="uid://xba0x3yt5bmh" path="res://time_bar/time_bar_top.tres" id="2_3gc3u"]
+
+[node name="TimeBar" type="TextureProgressBar"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.0
+offset_top = 9.0
+offset_right = 257.0
+offset_bottom = 33.0
+grow_horizontal = 2
+value = 50.0
+texture_under = ExtResource("1_4gt34")
+texture_progress = ExtResource("2_3gc3u")

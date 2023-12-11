@@ -1,0 +1,248 @@
+[gd_scene load_steps=16 format=3 uid="uid://dxw62ub5owp03"]
+
+[ext_resource type="Script" path="res://selector/selector.gd" id="1_8mib2"]
+[ext_resource type="Texture2D" uid="uid://jfe2ki538pkb" path="res://selector/frame.png" id="1_b2ges"]
+[ext_resource type="Texture2D" uid="uid://c00s4htxinyj6" path="res://selector/selector.png" id="2_4ls63"]
+
+[sub_resource type="Animation" id="Animation_1sh21"]
+resource_name = "Pulse"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.5),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_io3h6"]
+_data = {
+"Pulse": SubResource("Animation_1sh21")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77kw7"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_u1yv2"]
+resource_name = "Pulse"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d607d"]
+_data = {
+"Pulse": SubResource("Animation_u1yv2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iycqg"]
+size = Vector2(51, 64)
+
+[sub_resource type="Animation" id="Animation_0a6ju"]
+resource_name = "Pulse"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iklpa"]
+_data = {
+"Pulse": SubResource("Animation_0a6ju")
+}
+
+[sub_resource type="Animation" id="Animation_cdc0a"]
+resource_name = "Passive"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_wxbi3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rubv1"]
+resource_name = "Hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0fa0"]
+_data = {
+"Hide": SubResource("Animation_rubv1"),
+"Passive": SubResource("Animation_cdc0a"),
+"RESET": SubResource("Animation_wxbi3")
+}
+
+[node name="Selector" type="Control"]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+script = ExtResource("1_8mib2")
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -88.0
+offset_right = 32.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(33, 32)
+texture = ExtResource("1_b2ges")
+
+[node name="Item" type="Sprite2D" parent="Frame"]
+position = Vector2(33, 32)
+scale = Vector2(2.75, 2.75)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Frame"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_io3h6")
+}
+
+[node name="Area2D" type="Area2D" parent="Frame"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Area2D"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_77kw7")
+
+[node name="Left" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.439
+anchor_top = 0.844
+anchor_right = 0.439
+anchor_bottom = 0.844
+offset_left = -39.96
+offset_top = -19.84
+offset_right = 0.039978
+offset_bottom = 20.16
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(40, 20)
+texture = ExtResource("2_4ls63")
+flip_h = true
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Left"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_d607d")
+}
+
+[node name="Area2D" type="Area2D" parent="Left"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left/Area2D"]
+position = Vector2(18.5, 20)
+shape = SubResource("RectangleShape2D_iycqg")
+
+[node name="Right" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.559
+anchor_top = 0.844
+anchor_right = 0.559
+anchor_bottom = 0.844
+offset_left = 0.23999
+offset_top = -19.84
+offset_right = 40.24
+offset_bottom = 20.16
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0, 20)
+texture = ExtResource("2_4ls63")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Right"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_iklpa")
+}
+
+[node name="Area2D" type="Area2D" parent="Right"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right/Area2D"]
+position = Vector2(22, 20)
+shape = SubResource("RectangleShape2D_iycqg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_g0fa0")
+}
+autoplay = "Passive"
+
+[connection signal="input_event" from="Frame/Area2D" to="." method="_frame_clicked"]
+[connection signal="input_event" from="Left/Area2D" to="." method="_left_arrow_clicked"]
+[connection signal="input_event" from="Right/Area2D" to="." method="_right_arrow_clicked"]
