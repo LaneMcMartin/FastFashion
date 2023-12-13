@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 func update(new_type: CompositeSprite.TYPE) -> void:
 	current_type = new_type
 	item.offset.y = CompositeSprite.sprite_offsets[current_type]
+	_scroll_selection(Selector.DIRECTION.RIGHT)
 
 
 func _left_arrow_clicked(viewport: Node, event: InputEvent, shape_idx: int) -> void:
