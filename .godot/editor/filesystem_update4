@@ -1,6 +1,0 @@
-res://main/main.tscn
-res://level_manager/level_manager.tscn
-res://selector/selector.tscn
-res://selector/selector.gd
-res://character/character.gd
-res://level_manager/npc_handler.gd
