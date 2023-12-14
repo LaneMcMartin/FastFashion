@@ -35,6 +35,12 @@ enum State {IDLE, ROAM, DESPAWN}
 func _ready() -> void:
 	# Determine random clothing
 	randomize_clothing()
+	
+	# Set position to be offscreen
+	position = get_offscreen_position()
+	
+	# Set next position to be random spot onscreen
+	roam_next_position = get_onscreen_position()
 
 func _process(delta: float) -> void:
 	match _current_state:
@@ -76,17 +82,7 @@ func change_state(new_state: State) -> void:
 			_current_state = State.IDLE
 		State.DESPAWN:
 			# Generate a random Vector2 on the edges of the screen
-			var randomX: float
-			var randomY: float
-			if randf() < 0.5:
-				randomX = x_min - 100
-			else:
-				randomX = x_max + 100
-			if randf() < 0.5:
-				randomY = y_min - 100
-			else:
-				randomY = y_max + 100
-			despawn_next_position = Vector2(randomX, randomY)
+			despawn_next_position = get_offscreen_position()
 			_current_state = State.DESPAWN
 			
 func change_clothing(clothing_index: int, new_clothing: CompositeSprite.TYPE) -> void:
@@ -119,3 +115,13 @@ func _on_clickable_area_input_event(viewport: Node, event: InputEvent, shape_idx
 	if event.is_action_pressed("CLICK"):
 		character_clicked.emit(_current_state)
 		randomize_clothing()
+
+func get_offscreen_position() -> Vector2:
+	# Get a position at the center of the screen
+	var center_of_screen: Vector2 = Vector2((x_max - x_min) / 2, (y_max - y_min) / 2)
+
+	# Add a vector to that to pick some point outside the screen
+	return center_of_screen + (500.0 * Vector2.from_angle(randf_range(0, 2 * PI)))
+
+func get_onscreen_position() -> Vector2:
+	return Vector2(randi_range(x_min, x_max), randi_range(y_min, y_max))

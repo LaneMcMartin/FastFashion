@@ -37,7 +37,6 @@ func spawn_characters(amount: int, roam_speed: float, roam_radius: float, clothi
 func get_most_common_index() -> int:
 	return item_to_find
 
-
 func dismiss_and_despawn() -> void:
 	for child in get_children():
 		child.change_state(Character.State.DESPAWN)

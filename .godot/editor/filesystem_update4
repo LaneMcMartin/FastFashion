@@ -1,12 +1,6 @@
 res://main/main.tscn
-res://character/character.tscn
 res://level_manager/level_manager.tscn
 res://selector/selector.tscn
-res://level_manager/backgrounds/background_tileset.tres
-res://level_manager/level_manager.gd
 res://selector/selector.gd
 res://character/character.gd
 res://level_manager/npc_handler.gd
-res://time_bar/time_bar_bottom.tres
-res://time_bar/time_bar_top.tres
-res://level_manager/time_handler.gd
