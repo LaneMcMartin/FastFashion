@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://kh10lbup6app"]
+
+[ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="1_3fcer"]
+[ext_resource type="Script" path="res://notifications/ui_notifications.gd" id="1_w4pk6"]
+
+[sub_resource type="Animation" id="Animation_8qk3t"]
+resource_name = "slide"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Text:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.2, 2),
+"transitions": PackedFloat32Array(0.5, 1, 1, 2),
+"update": 0,
+"values": [Vector2(-200, 162.5), Vector2(239.5, 162.5), Vector2(239.5, 162.5), Vector2(650, 162.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Text:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1.5, 1.5), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Text:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.0, 0.174533, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_73ong"]
+_data = {
+"slide": SubResource("Animation_8qk3t")
+}
+
+[node name="UINotifications" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4pk6")
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.189
+anchor_top = 0.498
+anchor_right = -0.189
+anchor_bottom = 0.498
+offset_left = -79.04
+offset_top = -16.78
+offset_right = 81.961
+offset_bottom = 18.22
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(78, 16)
+theme = ExtResource("1_3fcer")
+text = "SPEED UP!"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_73ong")
+}
+autoplay = "slide"
