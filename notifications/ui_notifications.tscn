@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://kh10lbup6app"]
 
-[ext_resource type="Theme" path="res://fonts/ui_theme.tres" id="1_3fcer"]
+[ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="1_3fcer"]
 [ext_resource type="Script" path="res://notifications/ui_notifications.gd" id="1_w4pk6"]
 
 [sub_resource type="Animation" id="Animation_8qk3t"]

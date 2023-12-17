@@ -12,3 +12,6 @@ func _ready() -> void:
 func play_sound(sound: AudioStreamWAV) -> void:
 	audioplayer.stream = sound
 	audioplayer.play()
+
+func change_volume_db(new_volume_db: float):
+	audioplayer.volume_db = new_volume_db
