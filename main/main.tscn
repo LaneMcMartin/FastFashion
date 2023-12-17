@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4nr14mdwhn2l"]
+[gd_scene load_steps=11 format=3 uid="uid://b4nr14mdwhn2l"]
 
 [ext_resource type="Texture2D" uid="uid://qwo1mgn2toss" path="res://title_screen/logo.png" id="2_koea8"]
 [ext_resource type="Script" path="res://title_screen/titlescreen.gd" id="2_mikm4"]
 [ext_resource type="PackedScene" uid="uid://dag42htys0nry" path="res://level_manager/level_manager.tscn" id="3_fjitl"]
 [ext_resource type="Texture2D" uid="uid://cwsnnnmx7xvvu" path="res://title_screen/start.png" id="3_wtpyc"]
 [ext_resource type="Texture2D" uid="uid://dmi2swn5hdi2r" path="res://title_screen/options.png" id="4_7qifh"]
+[ext_resource type="Shader" path="res://transition/transition.gdshader" id="6_f1ak8"]
+[ext_resource type="Script" path="res://transition/transition.gd" id="6_s4vkj"]
 
 [sub_resource type="Animation" id="Animation_vr8ao"]
 resource_name = "enter"
@@ -25,6 +27,11 @@ tracks/0/keys = {
 _data = {
 "enter": SubResource("Animation_vr8ao")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sdpn"]
+shader = ExtResource("6_f1ak8")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 20.0
 
 [node name="Main" type="Node2D"]
 
@@ -96,6 +103,25 @@ root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_fmfyx")
 }
+
+[node name="Transition" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_s4vkj")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Transition"]
+material = SubResource("ShaderMaterial_3sdpn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart/Start" to="CanvasLayer/TitleScreen" method="_on_start_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2/Options" to="CanvasLayer/TitleScreen" method="_on_options_gui_input"]
