@@ -1,6 +1,8 @@
 extends Node2D
 class_name LevelManager
 
+@export var transition : Transition
+
 @onready var selector: Selector = $CanvasLayer/Selector
 @onready var npc_handler: NPCHandler = $NPCHandler
 @onready var time_handler: Node2D = $TimeHandler
@@ -14,17 +16,31 @@ var level_quantity: int = 5
 var target_clothing_type: CompositeSprite.TYPE = CompositeSprite.TYPE.HAT
 var target_index: int = 0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Connect signals
 	selector.connect("item_selected", _item_selected)
 	
+	# Make invisible
+	visible = false
+	selector.visible = false
+	ui_notifications = false
+
+
+func game_start() -> void:
 	# Reset parameters
 	level_difficulty = 1
 	level_quantity = 10
 	
+	# Make visible
+	visible = true
+	selector.visible = true
+	ui_notifications = true
+	
 	# Start the level
 	level_start()
+
 
 func level_start() -> void:
 	# TODO: Set the level difficulty
@@ -91,3 +107,8 @@ func _item_selected(selected_item: int) -> void:
 
 func _on_time_handler_timer_expired() -> void:
 	game_end()
+
+
+func _on_title_screen_start_pressed():
+	transition.open()
+	game_start()

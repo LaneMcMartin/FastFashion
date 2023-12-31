@@ -64,13 +64,13 @@ anchor_left = -0.189
 anchor_top = 0.498
 anchor_right = -0.189
 anchor_bottom = 0.498
-offset_left = -79.04
+offset_left = 361.064
 offset_top = -16.78
-offset_right = 81.961
+offset_right = 522.065
 offset_bottom = 18.22
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(78, 16)
 theme = ExtResource("1_3fcer")
 text = "SPEED UP!"
@@ -80,4 +80,3 @@ metadata/_edit_use_anchors_ = true
 libraries = {
 "": SubResource("AnimationLibrary_73ong")
 }
-autoplay = "slide"
