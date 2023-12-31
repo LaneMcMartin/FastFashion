@@ -20,11 +20,11 @@ func rotate_animation(to_animate: TextureRect):
 func _on_start_gui_input(event):
 	if event.is_action_pressed("CLICK"):
 		print("whee start!")
-		#animation_player.play("enter", -1, -1.5, true)
+		animation_player.play("enter", -1, -1.5, true)
 
 
 func _on_options_gui_input(event):
 	if event.is_action_pressed("CLICK"):
 		print("whee option!")
-		#animation_player.play("enter", -1, -1.5, true)
+		animation_player.play("enter", -1, -1.5, true)
 		

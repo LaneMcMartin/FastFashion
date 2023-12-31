@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dag42htys0nry"]
+[gd_scene load_steps=12 format=3 uid="uid://dag42htys0nry"]
 
 [ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
 [ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
@@ -7,19 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://deexf16n0hiju" path="res://time_bar/time_bar.tscn" id="4_whsmh"]
 [ext_resource type="PackedScene" uid="uid://kh10lbup6app" path="res://notifications/ui_notifications.tscn" id="4_xclyy"]
 [ext_resource type="Script" path="res://flashlight/flashlight.gd" id="6_c55d4"]
+[ext_resource type="Texture2D" uid="uid://bi8rxqk2crw63" path="res://flashlight/light.png" id="7_a4w6l"]
 [ext_resource type="Texture2D" uid="uid://do6tnl6bti1te" path="res://level_manager/backgrounds/brick.png" id="8_72n4s"]
-
-[sub_resource type="Gradient" id="Gradient_37xxl"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_uf0hx"]
-gradient = SubResource("Gradient_37xxl")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.2, 0.2)
-metadata/_snap_enabled = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tf0de"]
 texture = ExtResource("8_72n4s")
@@ -55,10 +44,10 @@ one_shot = true
 step = 0.1
 
 [node name="Flashlight" type="PointLight2D" parent="."]
-scale = Vector2(5, 5)
+scale = Vector2(3, 3)
 color = Color(0.929412, 0.866667, 0.8, 1)
 energy = 1.5
-texture = SubResource("GradientTexture2D_uf0hx")
+texture = ExtResource("7_a4w6l")
 script = ExtResource("6_c55d4")
 
 [node name="AmbientLight" type="DirectionalLight2D" parent="."]
