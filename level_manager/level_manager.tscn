@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dag42htys0nry"]
+[gd_scene load_steps=14 format=3 uid="uid://dag42htys0nry"]
 
 [ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
 [ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
@@ -9,6 +9,39 @@
 [ext_resource type="Script" path="res://flashlight/flashlight.gd" id="6_c55d4"]
 [ext_resource type="Texture2D" uid="uid://bi8rxqk2crw63" path="res://flashlight/light.png" id="7_a4w6l"]
 [ext_resource type="Texture2D" uid="uid://do6tnl6bti1te" path="res://level_manager/backgrounds/brick.png" id="8_72n4s"]
+
+[sub_resource type="Animation" id="Animation_3b2lf"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5, 0.75]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(2.75, 2.75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oybia"]
+_data = {
+"pulse": SubResource("Animation_3b2lf")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tf0de"]
 texture = ExtResource("8_72n4s")
@@ -44,11 +77,17 @@ one_shot = true
 step = 0.1
 
 [node name="Flashlight" type="PointLight2D" parent="."]
-scale = Vector2(3, 3)
+scale = Vector2(2.5, 2.5)
 color = Color(0.929412, 0.866667, 0.8, 1)
-energy = 1.5
+energy = 0.75
 texture = ExtResource("7_a4w6l")
 script = ExtResource("6_c55d4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Flashlight"]
+libraries = {
+"": SubResource("AnimationLibrary_oybia")
+}
+autoplay = "pulse"
 
 [node name="AmbientLight" type="DirectionalLight2D" parent="."]
 blend_mode = 1

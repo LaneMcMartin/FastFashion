@@ -1,8 +1,16 @@
+class_name OptionsMenu
 extends Control
+
+@export var transition : Transition
+
+signal return_pressed
+
+func _ready():
+	visible = false
 
 
 func _on_return_gui_input(event):
-	pass # Replace with function body.
+	return_pressed.emit()
 
 
 func _on_sfx_slider_value_changed(value):

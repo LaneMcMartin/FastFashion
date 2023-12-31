@@ -1,3 +1,4 @@
+class_name Transition
 extends Control
 
 @onready var color_rect = $ColorRect
