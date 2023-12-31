@@ -253,8 +253,10 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
+[connection signal="options_pressed" from="CanvasLayer/TitleScreen" to="CanvasLayer/Options" method="_on_title_screen_options_pressed"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart/Start" to="CanvasLayer/TitleScreen" method="_on_start_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2/Options" to="CanvasLayer/TitleScreen" method="_on_options_gui_input"]
+[connection signal="return_pressed" from="CanvasLayer/Options" to="CanvasLayer/TitleScreen" method="_on_options_return_pressed"]
 [connection signal="gui_input" from="CanvasLayer/Options/VBoxContainer/OptionsMargin/Options" to="CanvasLayer/Options" method="_on_options_gui_input"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/SliderGrid/SFXSlider/TextureRect/MarginContainer/SFXSlider" to="CanvasLayer/Options" method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/SliderGrid/MusicSlider/TextureRect/MarginContainer/MusicSlider" to="CanvasLayer/Options" method="_on_music_slider_value_changed"]

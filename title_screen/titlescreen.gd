@@ -25,16 +25,21 @@ func rotate_animation(to_animate: TextureRect):
 
 func _on_start_gui_input(event):
 	if event.is_action_pressed("CLICK"):
-		print("whee start!")
-		#animation_player.play("enter", -1, -1.5, true)
 		transition.close()
+		await transition.transition_completed
+		visible = false
 		start_pressed.emit()
 
 
 func _on_options_gui_input(event):
 	if event.is_action_pressed("CLICK"):
-		print("whee option!")
-		#animation_player.play("enter", -1, -1.5, true)
 		transition.close()
+		await transition.transition_completed
+		visible = false
 		options_pressed.emit()
 		
+
+
+func _on_options_return_pressed():
+	visible = true
+	transition.open()
