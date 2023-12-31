@@ -15,10 +15,11 @@ func _ready():
 	#animation_player.play("enter", -1, 1.5)
 	pass
 
+
 func _process(delta):
 	pass
-	
-	
+
+
 func rotate_animation(to_animate: TextureRect):
 	pass
 
@@ -37,7 +38,6 @@ func _on_options_gui_input(event):
 		await transition.transition_completed
 		visible = false
 		options_pressed.emit()
-		
 
 
 func _on_options_return_pressed():

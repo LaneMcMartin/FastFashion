@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4nr14mdwhn2l"]
+[gd_scene load_steps=18 format=3 uid="uid://b4nr14mdwhn2l"]
 
 [ext_resource type="Texture2D" uid="uid://qwo1mgn2toss" path="res://title_screen/logo.png" id="2_koea8"]
 [ext_resource type="Script" path="res://title_screen/titlescreen.gd" id="2_mikm4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://transition/transition.gd" id="6_s4vkj"]
 [ext_resource type="Texture2D" uid="uid://e1gvone7nr6w" path="res://options/music.png" id="8_ojj10"]
 [ext_resource type="Texture2D" uid="uid://mwya3d17tlil" path="res://options/return.png" id="9_ehol2"]
+[ext_resource type="Texture2D" uid="uid://dk735n57n0l4f" path="res://options/selector.png" id="9_y8p13"]
 
 [sub_resource type="Animation" id="Animation_vr8ao"]
 resource_name = "enter"
@@ -184,6 +185,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = SubResource("Theme_18tx6")
+theme_override_icons/grabber = ExtResource("9_y8p13")
+theme_override_icons/grabber_highlight = ExtResource("9_y8p13")
+theme_override_icons/grabber_disabled = ExtResource("9_y8p13")
 max_value = 1.0
 step = 0.05
 value = 0.5
@@ -218,6 +222,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = SubResource("Theme_18tx6")
+theme_override_icons/grabber = ExtResource("9_y8p13")
+theme_override_icons/grabber_highlight = ExtResource("9_y8p13")
+theme_override_icons/grabber_disabled = ExtResource("9_y8p13")
 max_value = 1.0
 step = 0.05
 value = 0.5
