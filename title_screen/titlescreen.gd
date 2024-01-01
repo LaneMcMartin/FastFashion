@@ -43,3 +43,8 @@ func _on_options_gui_input(event):
 func _on_options_return_pressed():
 	visible = true
 	transition.open()
+
+
+func _on_level_manager_game_ended():
+	visible = true
+	transition.open()

@@ -3,10 +3,13 @@ class_name LevelManager
 
 @export var transition : Transition
 
-@onready var selector: Selector = $CanvasLayer/Selector
+@onready var selector: Selector = $CanvasLayer/LevelUI/Selector
 @onready var npc_handler: NPCHandler = $NPCHandler
 @onready var time_handler: Node2D = $TimeHandler
-@onready var ui_notifications = $CanvasLayer/UINotifications
+@onready var ui_notifications = $CanvasLayer/LevelUI/UINotifications
+@onready var level_ui = $CanvasLayer/LevelUI
+
+signal game_ended
 
 # Level and Difficulty
 var level_difficulty: int = 1
@@ -23,9 +26,7 @@ func _ready() -> void:
 	selector.connect("item_selected", _item_selected)
 	
 	# Make invisible
-	visible = false
-	selector.visible = false
-	ui_notifications = false
+	hide_all()
 
 
 func game_start() -> void:
@@ -34,9 +35,7 @@ func game_start() -> void:
 	level_quantity = 10
 	
 	# Make visible
-	visible = true
-	selector.visible = true
-	ui_notifications = true
+	show_all()
 	
 	# Start the level
 	level_start()
@@ -86,10 +85,11 @@ func level_end() -> void:
 	
 	
 func game_end() -> void:
-	# Dismiss NPCs and hide selector
-	level_end()
-	await get_tree().create_timer(1.0).timeout
-	level_start()
+	await level_end()
+	transition.close()
+	await transition.transition_completed
+	hide_all()
+	game_ended.emit()
 
 
 func _item_selected(selected_item: int) -> void:
@@ -99,10 +99,13 @@ func _item_selected(selected_item: int) -> void:
 		AudioManager.play_sound(AudioManager.SUCCESS)
 		level_quantity += 1
 		level_difficulty += 0.25
+		level_end()
+		await get_tree().create_timer(1.0).timeout
+		level_start()
 	else:
 		print("False!")
 		AudioManager.play_sound(AudioManager.FAIL)
-	game_end()
+		game_end()
 
 
 func _on_time_handler_timer_expired() -> void:
@@ -112,3 +115,13 @@ func _on_time_handler_timer_expired() -> void:
 func _on_title_screen_start_pressed():
 	transition.open()
 	game_start()
+
+func hide_all() -> void:
+	hide()
+	level_ui.hide()
+	time_handler.hide_timebar()
+	
+func show_all() -> void:
+	show()
+	level_ui.show()
+	time_handler.show_timebar()

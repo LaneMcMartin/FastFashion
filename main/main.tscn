@@ -261,6 +261,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
+[connection signal="game_ended" from="LevelManager" to="CanvasLayer/TitleScreen" method="_on_level_manager_game_ended"]
 [connection signal="options_pressed" from="CanvasLayer/TitleScreen" to="CanvasLayer/Options" method="_on_title_screen_options_pressed"]
 [connection signal="start_pressed" from="CanvasLayer/TitleScreen" to="LevelManager" method="_on_title_screen_start_pressed"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart/Start" to="CanvasLayer/TitleScreen" method="_on_start_gui_input"]

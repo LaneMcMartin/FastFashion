@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dag42htys0nry"]
+[gd_scene load_steps=18 format=3 uid="uid://dag42htys0nry"]
 
 [ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
 [ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
+[ext_resource type="Script" path="res://level_manager/level_ui.gd" id="3_2bg6n"]
 [ext_resource type="Script" path="res://level_manager/npc_handler.gd" id="3_s0gmi"]
 [ext_resource type="Script" path="res://level_manager/time_handler.gd" id="4_7hu5c"]
 [ext_resource type="PackedScene" uid="uid://deexf16n0hiju" path="res://time_bar/time_bar.tscn" id="4_whsmh"]
@@ -10,6 +11,27 @@
 [ext_resource type="Texture2D" uid="uid://bi8rxqk2crw63" path="res://flashlight/light.png" id="7_a4w6l"]
 [ext_resource type="Texture2D" uid="uid://do6tnl6bti1te" path="res://level_manager/backgrounds/brick.png" id="8_72n4s"]
 [ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="9_0k0qc"]
+
+[sub_resource type="Animation" id="Animation_ssx2g"]
+resource_name = "Hide"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeHandler/CanvasLayer/TimeBar:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(63, 9), Vector2(63, 20), Vector2(63, -30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bya3o"]
+_data = {
+"Hide": SubResource("Animation_ssx2g")
+}
 
 [sub_resource type="Animation" id="Animation_3b2lf"]
 resource_name = "pulse"
@@ -62,11 +84,23 @@ script = ExtResource("3_s0gmi")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="Selector" parent="CanvasLayer" instance=ExtResource("2_ar0d8")]
+[node name="LevelUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_2bg6n")
 
-[node name="UINotifications" parent="CanvasLayer" instance=ExtResource("4_xclyy")]
+[node name="Selector" parent="CanvasLayer/LevelUI" instance=ExtResource("2_ar0d8")]
+layout_mode = 1
+
+[node name="UINotifications" parent="CanvasLayer/LevelUI" instance=ExtResource("4_xclyy")]
+layout_mode = 1
 
 [node name="TimeHandler" type="Node2D" parent="."]
+position = Vector2(0, 10)
 script = ExtResource("4_7hu5c")
 
 [node name="Timer" type="Timer" parent="TimeHandler"]
@@ -75,7 +109,15 @@ one_shot = true
 [node name="CanvasLayer" type="CanvasLayer" parent="TimeHandler"]
 
 [node name="TimeBar" parent="TimeHandler/CanvasLayer" instance=ExtResource("4_whsmh")]
+offset_top = -30.0
+offset_bottom = -6.0
 step = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TimeHandler"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_bya3o")
+}
 
 [node name="Flashlight" type="PointLight2D" parent="."]
 scale = Vector2(3, 3)
@@ -93,7 +135,8 @@ autoplay = "pulse"
 [node name="AmbientLight" type="DirectionalLight2D" parent="."]
 blend_mode = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Score" type="Label" parent="."]
+visible = false
 z_index = -1
 anchors_preset = 8
 anchor_left = 0.5

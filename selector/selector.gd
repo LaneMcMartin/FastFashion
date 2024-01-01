@@ -75,7 +75,11 @@ func _make_selection() -> void:
 
 func hide_selector() -> void:
 	animation_player.play("Hide")
+	await animation_player.animation_finished
+	hide()
 
 
 func show_selector() -> void:
 	animation_player.play_backwards("Hide")
+	await animation_player.animation_finished
+	show()
