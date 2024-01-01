@@ -7,9 +7,9 @@ func _ready() -> void:
 	hide_ui()
 	
 func hide_ui() -> void:
-	selector.hide()
+	selector.hide_selector()
 	ui_notifications.hide()
 	
 func show_ui() -> void:
-	selector.show()
+	selector.show_selector()
 	ui_notifications.show()

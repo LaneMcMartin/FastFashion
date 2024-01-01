@@ -86,9 +86,10 @@ func level_end() -> void:
 	
 func game_end() -> void:
 	await level_end()
+	await ui_notifications.print_text("GAME OVER!")
+	await hide_all()
 	transition.close()
 	await transition.transition_completed
-	hide_all()
 	game_ended.emit()
 
 
@@ -118,10 +119,10 @@ func _on_title_screen_start_pressed():
 
 func hide_all() -> void:
 	hide()
-	level_ui.hide()
+	level_ui.hide_ui()
 	time_handler.hide_timebar()
 	
 func show_all() -> void:
 	show()
-	level_ui.show()
+	level_ui.show_ui()
 	time_handler.show_timebar()

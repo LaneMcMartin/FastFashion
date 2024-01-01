@@ -16,7 +16,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time_bar.value = ((timer.time_left / timer.wait_time) * 100)
 
-
 func start_timer(limit: int) -> void:
 	time_bar.visible = true
 	timer.wait_time = limit
