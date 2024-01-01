@@ -87,9 +87,9 @@ func level_end() -> void:
 func game_end() -> void:
 	await level_end()
 	await ui_notifications.print_text("GAME OVER!")
-	await hide_all()
 	transition.close()
 	await transition.transition_completed
+	hide_all()
 	game_ended.emit()
 
 
