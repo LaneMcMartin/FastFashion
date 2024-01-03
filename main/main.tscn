@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b4nr14mdwhn2l"]
+[gd_scene load_steps=23 format=3 uid="uid://b4nr14mdwhn2l"]
 
 [ext_resource type="Texture2D" uid="uid://qwo1mgn2toss" path="res://title_screen/logo.png" id="2_koea8"]
 [ext_resource type="Script" path="res://title_screen/titlescreen.gd" id="2_mikm4"]
@@ -31,12 +31,76 @@ tracks/0/keys = {
 "values": [Vector2(-650, 0), Vector2(100, 0), Vector2(-2, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_eycnw"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TitleScreen/VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(0, -10), Vector2(0, 10), Vector2(0, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TitleScreen/MenuBG:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fmfyx"]
 _data = {
+"bob": SubResource("Animation_eycnw"),
 "enter": SubResource("Animation_vr8ao")
 }
 
 [sub_resource type="Theme" id="Theme_18tx6"]
+
+[sub_resource type="Animation" id="Animation_3kir0"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(77, -10), Vector2(77, 10), Vector2(77, -10), Vector2(77, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuBG:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76aha"]
+_data = {
+"bob": SubResource("Animation_3kir0")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3sdpn"]
 shader = ExtResource("6_f1ak8")
@@ -65,8 +129,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_right = 2.0
+offset_top = 10.0
+offset_right = 4.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -110,16 +175,12 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 texture = ExtResource("4_7qifh")
 
-[node name="MenuBG" type="TextureRect" parent="CanvasLayer/TitleScreen"]
+[node name="MenuBG" type="Sprite2D" parent="CanvasLayer/TitleScreen"]
 z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+position = Vector2(320, 179)
+scale = Vector2(1.025, 1.025)
 texture = ExtResource("14_ek6qw")
+offset = Vector2(0, 5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TitleScreen"]
 reset_on_save = false
@@ -127,6 +188,7 @@ root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_fmfyx")
 }
+autoplay = "bob"
 
 [node name="Options" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("transition")]
 layout_mode = 3
@@ -146,9 +208,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -243.0
-offset_top = -91.5
+offset_top = -190.0
 offset_right = 243.0
-offset_bottom = 91.5
+offset_bottom = 165.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -253,16 +315,18 @@ layout_mode = 2
 texture = ExtResource("9_ehol2")
 stretch_mode = 3
 
-[node name="MenuBG" type="TextureRect" parent="CanvasLayer/Options"]
+[node name="MenuBG" type="Sprite2D" parent="CanvasLayer/Options"]
 z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+position = Vector2(320, 180)
+scale = Vector2(1.025, 1.025)
 texture = ExtResource("13_w8wju")
+offset = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Options"]
+libraries = {
+"": SubResource("AnimationLibrary_76aha")
+}
+autoplay = "bob"
 
 [node name="Transition" type="Control" parent="CanvasLayer"]
 layout_mode = 3
