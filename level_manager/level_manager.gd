@@ -37,6 +37,9 @@ func game_start() -> void:
 	# Make visible
 	show_all()
 	
+	# Play music
+	AudioManager.play_sound(AudioManager.BONUSGAME_BY_WOLFGANG_UNDERSCORE__ON_OPENGAMEART)
+	
 	# Start the level
 	level_start()
 
@@ -114,6 +117,7 @@ func _on_time_handler_timer_expired() -> void:
 
 
 func _on_title_screen_start_pressed():
+	AudioManager.play_sound(AudioManager.OPENING)
 	transition.open()
 	game_start()
 
