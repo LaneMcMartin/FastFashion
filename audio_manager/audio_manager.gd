@@ -3,6 +3,9 @@ extends Node
 const SUCCESS: AudioStreamWAV = preload("res://audio_manager/success.wav")
 const FAIL: AudioStreamWAV = preload("res://audio_manager/fail.wav")
 const GAME_OVER: AudioStreamWAV = preload("res://audio_manager/game_over.wav")
+const SELECTED : AudioStreamWAV = preload("res://audio_manager/selected.wav")
+const OPENING : AudioStreamWAV = preload("res://audio_manager/opening.wav")
+const CLOSING : AudioStreamWAV = preload("res://audio_manager/closing.wav")
 
 @onready var audioplayer_sfx: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var audioplayer_music: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -16,6 +19,8 @@ func _ready() -> void:
 func play_sound(sound: AudioStreamWAV) -> void:
 	audioplayer_sfx.stream = sound
 	audioplayer_sfx.play()
+	await audioplayer_sfx.finished
+	audioplayer_sfx.stop()
 
 func change_volume_db(new_volume_db: float, bus: String):
 	match bus:

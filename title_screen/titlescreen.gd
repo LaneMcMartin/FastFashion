@@ -26,7 +26,9 @@ func rotate_animation(to_animate: TextureRect):
 
 func _on_start_gui_input(event):
 	if event.is_action_pressed("CLICK"):
+		AudioManager.play_sound(AudioManager.SELECTED)
 		transition.close()
+		AudioManager.play_sound(AudioManager.CLOSING)
 		await transition.transition_completed
 		visible = false
 		start_pressed.emit()
@@ -34,7 +36,9 @@ func _on_start_gui_input(event):
 
 func _on_options_gui_input(event):
 	if event.is_action_pressed("CLICK"):
+		AudioManager.play_sound(AudioManager.SELECTED)
 		transition.close()
+		AudioManager.play_sound(AudioManager.CLOSING)
 		await transition.transition_completed
 		visible = false
 		options_pressed.emit()
@@ -43,8 +47,10 @@ func _on_options_gui_input(event):
 func _on_options_return_pressed():
 	visible = true
 	transition.open()
+	AudioManager.play_sound(AudioManager.OPENING)
 
 
 func _on_level_manager_game_ended():
 	visible = true
 	transition.open()
+	AudioManager.play_sound(AudioManager.OPENING)

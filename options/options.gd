@@ -11,7 +11,9 @@ func _ready():
 
 func _on_return_gui_input(event):
 	if event.is_action_pressed("CLICK"):
+		AudioManager.play_sound(AudioManager.SELECTED)
 		transition.close()
+		AudioManager.play_sound(AudioManager.CLOSING)
 		await transition.transition_completed
 		visible = false
 		return_pressed.emit()
@@ -28,3 +30,4 @@ func _on_music_slider_value_changed(value):
 func _on_title_screen_options_pressed():
 	visible = true
 	transition.open()
+	AudioManager.play_sound(AudioManager.OPENING)
