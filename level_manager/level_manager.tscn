@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dag42htys0nry"]
+[gd_scene load_steps=16 format=3 uid="uid://dag42htys0nry"]
 
 [ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
 [ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://6d0sp3ec5b1p" path="res://countdown/countdown.tscn" id="6_a8mle"]
 [ext_resource type="Script" path="res://flashlight/flashlight.gd" id="6_c55d4"]
 [ext_resource type="Texture2D" uid="uid://bi8rxqk2crw63" path="res://flashlight/light.png" id="7_a4w6l"]
-[ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="9_0k0qc"]
 [ext_resource type="Texture2D" uid="uid://bm3hhq45l0qak" path="res://level_manager/backgrounds/level.png" id="11_dr247"]
 
 [sub_resource type="Animation" id="Animation_ssx2g"]
@@ -129,25 +128,6 @@ autoplay = "pulse"
 
 [node name="AmbientLight" type="DirectionalLight2D" parent="."]
 blend_mode = 1
-
-[node name="Score" type="Label" parent="."]
-visible = false
-z_index = -1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 272.0
-offset_top = 104.0
-offset_right = 360.0
-offset_bottom = 279.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("9_0k0qc")
-theme_override_font_sizes/font_size = 200
-text = "1"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -2
