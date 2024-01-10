@@ -13,14 +13,17 @@ signal start_pressed
 signal options_pressed
 
 var high_score : int = 0
+var save_path : String = "user://score.save"
 
 func _ready():
-	#animation_player.play("enter", -1, 1.5)
+	load_score()
 	hs.hide()
-
+	
 
 func _process(delta):
-	pass
+	if high_score > 0:
+		hs.show()
+		hs.text = "HIGH SCORE: " + str(high_score)
 
 
 func rotate_animation(to_animate: TextureRect):
@@ -57,8 +60,17 @@ func _on_level_manager_game_ended(score : int):
 	visible = true
 	if score > high_score:
 		high_score = score
-	if high_score > 0:
-		hs.show()
-		hs.text = "HIGH SCORE: " + str(high_score)
+		save_score(high_score)
 	transition.open()
 	AudioManager.play_sound(AudioManager.OPENING)
+
+func save_score(score : int):
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(score)
+
+func load_score():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		high_score = file.get_var()
+	else:
+		high_score = 0
