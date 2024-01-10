@@ -20,7 +20,6 @@ func _ready() -> void:
 	animation_player.play("Passive")
 	
 	
-	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("LEFT"):
 		_scroll_selection(DIRECTION.LEFT)
@@ -28,7 +27,7 @@ func _process(delta: float) -> void:
 		_scroll_selection(DIRECTION.RIGHT)
 	if Input.is_action_just_pressed("SELECT"):
 		_make_selection()
-
+		
 
 func update(new_type: CompositeSprite.TYPE) -> void:
 	current_type = new_type
@@ -76,10 +75,11 @@ func _make_selection() -> void:
 func hide_selector() -> void:
 	animation_player.play("Hide")
 	await animation_player.animation_finished
-	hide()
+	#hide()
 
 
 func show_selector() -> void:
+	#show()
 	animation_player.play_backwards("Hide")
 	await animation_player.animation_finished
-	show()
+	animation_player.play("Passive")

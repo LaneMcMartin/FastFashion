@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dag42htys0nry"]
+[gd_scene load_steps=17 format=3 uid="uid://dag42htys0nry"]
 
 [ext_resource type="Script" path="res://level_manager/level_manager.gd" id="1_fsc01"]
 [ext_resource type="PackedScene" uid="uid://dxw62ub5owp03" path="res://selector/selector.tscn" id="2_ar0d8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://level_manager/time_handler.gd" id="4_7hu5c"]
 [ext_resource type="PackedScene" uid="uid://deexf16n0hiju" path="res://time_bar/time_bar.tscn" id="4_whsmh"]
 [ext_resource type="PackedScene" uid="uid://kh10lbup6app" path="res://notifications/ui_notifications.tscn" id="4_xclyy"]
+[ext_resource type="PackedScene" uid="uid://6d0sp3ec5b1p" path="res://countdown/countdown.tscn" id="6_a8mle"]
 [ext_resource type="Script" path="res://flashlight/flashlight.gd" id="6_c55d4"]
 [ext_resource type="Texture2D" uid="uid://bi8rxqk2crw63" path="res://flashlight/light.png" id="7_a4w6l"]
 [ext_resource type="Theme" uid="uid://clwg3ltgqmxwd" path="res://fonts/ui_theme.tres" id="9_0k0qc"]
@@ -86,8 +87,13 @@ script = ExtResource("3_2bg6n")
 
 [node name="Selector" parent="CanvasLayer/LevelUI" instance=ExtResource("2_ar0d8")]
 layout_mode = 1
+offset_top = 0.0
+offset_bottom = 0.0
 
 [node name="UINotifications" parent="CanvasLayer/LevelUI" instance=ExtResource("4_xclyy")]
+layout_mode = 1
+
+[node name="Countdown" parent="CanvasLayer/LevelUI" instance=ExtResource("6_a8mle")]
 layout_mode = 1
 
 [node name="TimeHandler" type="Node2D" parent="."]

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dysvf5lr2u6qd"]
+
+[ext_resource type="Texture2D" uid="uid://dg706mj8wd204" path="res://countdown/countdown.png" id="1_8pgbo"]
+
+[resource]
+atlas = ExtResource("1_8pgbo")
+region = Rect2(630, 23, 210, 104)

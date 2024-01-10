@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cv7758gi3ymvm"]
+
+[ext_resource type="Texture2D" uid="uid://dg706mj8wd204" path="res://countdown/countdown.png" id="1_fbkue"]
+
+[resource]
+atlas = ExtResource("1_fbkue")
+region = Rect2(484, 10, 82, 130)

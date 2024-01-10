@@ -8,6 +8,7 @@ class_name LevelManager
 @onready var time_handler: Node2D = $TimeHandler
 @onready var ui_notifications = $CanvasLayer/LevelUI/UINotifications
 @onready var level_ui = $CanvasLayer/LevelUI
+@onready var countdown: Control = $CanvasLayer/LevelUI/Countdown
 
 signal game_ended
 
@@ -35,10 +36,16 @@ func game_start() -> void:
 	level_quantity = 10
 	
 	# Make visible
+	show()
+	
+	# Countdown
+	await countdown.start_countdown()
+	
+	# Show all
 	show_all()
 	
 	# Play music
-	AudioManager.play_sound(AudioManager.BONUSGAME_BY_WOLFGANG_UNDERSCORE__ON_OPENGAMEART)
+	AudioManager.play_music(AudioManager.BONUSGAME_BY_WOLFGANG_UNDERSCORE__ON_OPENGAMEART)
 	
 	# Start the level
 	level_start()
@@ -73,7 +80,7 @@ func level_start() -> void:
 	selector.update(target_clothing_type)
 	
 	# Show selector
-	selector.show_selector()
+	await selector.show_selector()
 	
 	
 func level_end() -> void:
@@ -84,14 +91,16 @@ func level_end() -> void:
 	npc_handler.dismiss_and_despawn()
 	
 	# Hide selector
-	selector.hide_selector()
+	await selector.hide_selector()
 	
 	
 func game_end() -> void:
 	await level_end()
 	await ui_notifications.print_text("GAME OVER!")
 	transition.close()
+	AudioManager.play_sound(AudioManager.CLOSING)
 	await transition.transition_completed
+	AudioManager.stop_music()
 	hide_all()
 	game_ended.emit()
 
@@ -108,7 +117,7 @@ func _item_selected(selected_item: int) -> void:
 		level_start()
 	else:
 		print("False!")
-		AudioManager.play_sound(AudioManager.FAIL)
+		AudioManager.play_sound(AudioManager.GAME_OVER)
 		game_end()
 
 
