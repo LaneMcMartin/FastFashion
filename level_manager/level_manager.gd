@@ -9,6 +9,8 @@ class_name LevelManager
 @onready var ui_notifications = $CanvasLayer/LevelUI/UINotifications
 @onready var level_ui = $CanvasLayer/LevelUI
 @onready var countdown: Control = $CanvasLayer/LevelUI/Countdown
+@onready var ambient_light: DirectionalLight2D = $AmbientLight
+@onready var flashlight: PointLight2D = $Flashlight
 
 signal game_ended(score : int)
 
@@ -56,6 +58,12 @@ func level_start() -> void:
 	
 	# Set the level quantity
 	level_quantity += correct_guesses
+	
+	# Set the time of day
+	if (correct_guesses % 2) != 0:
+		set_night()
+	else:
+		set_day()
 	
 	# Set the timer
 	time_handler.start_timer(5 - (correct_guesses * 0.05))
@@ -127,6 +135,7 @@ func _on_title_screen_start_pressed():
 	AudioManager.play_sound(AudioManager.OPENING)
 	transition.open()
 	show()
+	set_day()
 	await transition.transition_completed
 	game_start()
 
@@ -139,3 +148,17 @@ func show_all() -> void:
 	show()
 	level_ui.show_ui()
 	time_handler.show_timebar()
+
+func set_day() -> void:
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property(ambient_light, "energy", 0, 1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(flashlight, "scale", Vector2(0.01, 0.01), 1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(flashlight, "energy", 0, 1).set_trans(Tween.TRANS_EXPO)
+	tween.chain().tween_callback(flashlight.stop_pulse)
+
+func set_night() -> void:
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property(ambient_light, "energy", 1, 1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(flashlight, "scale", Vector2(3, 3), 1).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(flashlight, "energy", 1.5, 1).set_trans(Tween.TRANS_EXPO)
+	tween.chain().tween_callback(flashlight.start_pulse)
