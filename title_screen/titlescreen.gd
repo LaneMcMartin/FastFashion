@@ -7,13 +7,16 @@ extends Control
 @onready var start : TextureRect = $VBoxContainer/HBoxContainer/MarginContainerStart/Start
 @onready var options : TextureRect = $VBoxContainer/HBoxContainer/MarginContainerStart2/Options
 @onready var animation_player = $AnimationPlayer
+@onready var hs: Label = $VBoxContainer/HS
 
 signal start_pressed
 signal options_pressed
 
+var high_score : int = 0
+
 func _ready():
 	#animation_player.play("enter", -1, 1.5)
-	pass
+	hs.hide()
 
 
 func _process(delta):
@@ -50,7 +53,12 @@ func _on_options_return_pressed():
 	AudioManager.play_sound(AudioManager.OPENING)
 
 
-func _on_level_manager_game_ended():
+func _on_level_manager_game_ended(score : int):
 	visible = true
+	if score > high_score:
+		high_score = score
+	if high_score > 0:
+		hs.show()
+		hs.text = "HIGH SCORE: " + str(high_score)
 	transition.open()
 	AudioManager.play_sound(AudioManager.OPENING)

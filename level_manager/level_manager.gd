@@ -10,7 +10,7 @@ class_name LevelManager
 @onready var level_ui = $CanvasLayer/LevelUI
 @onready var countdown: Control = $CanvasLayer/LevelUI/Countdown
 
-signal game_ended
+signal game_ended(score : int)
 
 # Level and Difficulty
 var level_difficulty : int = 0
@@ -58,7 +58,7 @@ func level_start() -> void:
 	level_quantity += correct_guesses
 	
 	# Set the timer
-	time_handler.start_timer(5)
+	time_handler.start_timer(5 - (correct_guesses * 0.05))
 	
 	# Set the sublevel (via the clothing object)
 	var random_clothing = randi_range(0, CompositeSprite.TYPE.size() + 1)
@@ -102,7 +102,7 @@ func game_end() -> void:
 	await transition.transition_completed
 	AudioManager.stop_music()
 	hide_all()
-	game_ended.emit()
+	game_ended.emit(correct_guesses)
 
 
 func _item_selected(selected_item: int) -> void:

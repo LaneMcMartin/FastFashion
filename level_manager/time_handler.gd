@@ -16,7 +16,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time_bar.value = ((timer.time_left / timer.wait_time) * 100)
 
-func start_timer(limit: int) -> void:
+
+func start_timer(limit: float) -> void:
 	time_bar.visible = true
 	timer.wait_time = limit
 	var tween = get_tree().create_tween()
