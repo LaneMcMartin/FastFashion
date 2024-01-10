@@ -13,12 +13,13 @@ class_name LevelManager
 signal game_ended
 
 # Level and Difficulty
-var level_difficulty: int = 1
-var level_quantity: int = 5
+var level_difficulty : int = 0
+var level_quantity : int = 0
+var correct_guesses: int = 0
 
 # Targets
 var target_clothing_type: CompositeSprite.TYPE = CompositeSprite.TYPE.HAT
-var target_index: int = 0
+var target_index : int = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,9 +35,7 @@ func game_start() -> void:
 	# Reset parameters
 	level_difficulty = 1
 	level_quantity = 10
-	
-	# Make visible
-	show()
+	correct_guesses = 0
 	
 	# Countdown
 	await countdown.start_countdown()
@@ -52,8 +51,11 @@ func game_start() -> void:
 
 
 func level_start() -> void:
-	# TODO: Set the level difficulty
-	# TODO: Set the level variant
+	# Set the level difficulty
+	level_difficulty += (correct_guesses % 10)
+	
+	# Set the level quantity
+	level_quantity += correct_guesses
 	
 	# Set the timer
 	time_handler.start_timer(5)
@@ -67,8 +69,6 @@ func level_start() -> void:
 			target_clothing_type = CompositeSprite.TYPE.SHIRT
 		2:
 			target_clothing_type = CompositeSprite.TYPE.PANTS
-		#3:
-			#target_clothing_type = CompositeSprite.TYPE.BODY
 	
 	# Spawn NPCs
 	npc_handler.spawn_characters(level_quantity, 3.0, 30.0, target_clothing_type, level_difficulty)
@@ -108,26 +108,26 @@ func game_end() -> void:
 func _item_selected(selected_item: int) -> void:
 	# Check if the selected item is a match to the most common item
 	if (selected_item == target_index):
-		print("True!")
 		AudioManager.play_sound(AudioManager.SUCCESS)
-		level_quantity += 1
-		level_difficulty += 0.25
+		correct_guesses += 1
 		level_end()
-		await get_tree().create_timer(1.0).timeout
+		await ui_notifications.print_text(str(correct_guesses))
 		level_start()
 	else:
-		print("False!")
 		AudioManager.play_sound(AudioManager.GAME_OVER)
 		game_end()
 
 
 func _on_time_handler_timer_expired() -> void:
+	AudioManager.play_sound(AudioManager.GAME_OVER)
 	game_end()
 
 
 func _on_title_screen_start_pressed():
 	AudioManager.play_sound(AudioManager.OPENING)
 	transition.open()
+	show()
+	await transition.transition_completed
 	game_start()
 
 func hide_all() -> void:

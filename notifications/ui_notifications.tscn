@@ -59,22 +59,23 @@ script = ExtResource("1_w4pk6")
 
 [node name="Text" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.189
-anchor_top = 0.498
-anchor_right = -0.189
-anchor_bottom = 0.498
-offset_left = 361.064
-offset_top = -16.78
-offset_right = 522.065
-offset_bottom = 18.22
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -17.5
+offset_right = 80.5
+offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(78, 16)
 theme = ExtResource("1_3fcer")
 text = "SPEED UP!"
-metadata/_edit_use_anchors_ = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
