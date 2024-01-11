@@ -23,6 +23,9 @@ var correct_guesses: int = 0
 var target_clothing_type: CompositeSprite.TYPE = CompositeSprite.TYPE.HAT
 var target_index : int = 0
 
+# Time
+enum TIME_OF_DAY {DAY, NIGHT}
+var current_time : TIME_OF_DAY = TIME_OF_DAY.DAY
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,10 +63,8 @@ func level_start() -> void:
 	level_quantity += correct_guesses
 	
 	# Set the time of day
-	if (correct_guesses % 2) != 0:
-		set_night()
-	else:
-		set_day()
+	if ((correct_guesses + 1) % 5) == 0:
+		toggle_time()
 	
 	# Set the timer
 	time_handler.start_timer(5 - (correct_guesses * 0.05))
@@ -150,6 +151,7 @@ func show_all() -> void:
 	time_handler.show_timebar()
 
 func set_day() -> void:
+	current_time = TIME_OF_DAY.DAY
 	var tween = get_tree().create_tween().set_parallel(true)
 	tween.tween_property(ambient_light, "energy", 0, 1).set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(flashlight, "scale", Vector2(0.01, 0.01), 1).set_trans(Tween.TRANS_EXPO)
@@ -157,8 +159,16 @@ func set_day() -> void:
 	tween.chain().tween_callback(flashlight.stop_pulse)
 
 func set_night() -> void:
+	current_time = TIME_OF_DAY.NIGHT
 	var tween = get_tree().create_tween().set_parallel(true)
 	tween.tween_property(ambient_light, "energy", 1, 1).set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(flashlight, "scale", Vector2(3, 3), 1).set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(flashlight, "energy", 1.5, 1).set_trans(Tween.TRANS_EXPO)
 	tween.chain().tween_callback(flashlight.start_pulse)
+
+func toggle_time() -> void:
+	match current_time:
+		TIME_OF_DAY.DAY:
+			set_night()
+		TIME_OF_DAY.NIGHT:
+			set_day()
