@@ -57,7 +57,7 @@ func game_start() -> void:
 
 func level_start() -> void:
 	# Set the level difficulty
-	level_difficulty += (correct_guesses % 10)
+	level_difficulty += floor(correct_guesses / 10)
 	
 	# Set the level quantity
 	level_quantity += correct_guesses
