@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b4nr14mdwhn2l"]
+[gd_scene load_steps=28 format=3 uid="uid://b4nr14mdwhn2l"]
 
 [ext_resource type="Texture2D" uid="uid://qwo1mgn2toss" path="res://title_screen/logo.png" id="2_koea8"]
 [ext_resource type="Script" path="res://title_screen/titlescreen.gd" id="2_mikm4"]
@@ -11,11 +11,13 @@
 [ext_resource type="Shader" path="res://transition/transition.gdshader" id="6_f1ak8"]
 [ext_resource type="Texture2D" uid="uid://2qgebetq8rfo" path="res://options/sfx.png" id="6_o447o"]
 [ext_resource type="Script" path="res://transition/transition.gd" id="6_s4vkj"]
+[ext_resource type="Texture2D" uid="uid://cjryoqdsxsh83" path="res://title_screen/credits.png" id="7_hnqxb"]
 [ext_resource type="Texture2D" uid="uid://e1gvone7nr6w" path="res://options/music.png" id="8_ojj10"]
 [ext_resource type="Texture2D" uid="uid://mwya3d17tlil" path="res://options/return.png" id="9_ehol2"]
 [ext_resource type="Texture2D" uid="uid://dk735n57n0l4f" path="res://options/selector.png" id="9_y8p13"]
 [ext_resource type="Texture2D" uid="uid://330a1aa4ge0s" path="res://title_screen/day_bg.png" id="13_w8wju"]
 [ext_resource type="Texture2D" uid="uid://cq2tl0psokjdq" path="res://title_screen/night_bg.png" id="14_ek6qw"]
+[ext_resource type="Script" path="res://credits/credits.gd" id="16_7yvar"]
 
 [sub_resource type="Animation" id="Animation_eycnw"]
 resource_name = "bob"
@@ -31,7 +33,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 10), Vector2(0, -10), Vector2(0, 10), Vector2(0, -10)]
+"values": [Vector2(80, 10), Vector2(80, -10), Vector2(80, 10), Vector2(80, -10)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -103,6 +105,40 @@ _data = {
 "bob": SubResource("Animation_3kir0")
 }
 
+[sub_resource type="Animation" id="Animation_vewvj"]
+resource_name = "bob"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(0, 30), Vector2(0, 10), Vector2(0, 30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CreditsBG:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_68bws"]
+_data = {
+"bob": SubResource("Animation_vewvj")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3sdpn"]
 shader = ExtResource("6_f1ak8")
 shader_parameter/progress = 0.0
@@ -127,14 +163,19 @@ transition = NodePath("../Transition")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TitleScreen"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 10.0
-offset_right = 4.0
-offset_bottom = 10.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -170.0
+offset_right = 364.0
+offset_bottom = 235.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+alignment = 1
 
 [node name="MarginContainerTitle" type="MarginContainer" parent="CanvasLayer/TitleScreen/VBoxContainer"]
 layout_mode = 2
@@ -161,10 +202,10 @@ size_flags_horizontal = 4
 
 [node name="MarginContainerStart" type="MarginContainer" parent="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="Start" type="TextureRect" parent="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart"]
 layout_mode = 2
@@ -173,14 +214,21 @@ stretch_mode = 2
 
 [node name="MarginContainerStart2" type="MarginContainer" parent="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="Options" type="TextureRect" parent="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2"]
 layout_mode = 2
 texture = ExtResource("4_7qifh")
+
+[node name="Credits" type="TextureRect" parent="CanvasLayer/TitleScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_hnqxb")
+stretch_mode = 2
 
 [node name="MenuBG" type="Sprite2D" parent="CanvasLayer/TitleScreen"]
 z_index = -2
@@ -336,6 +384,98 @@ libraries = {
 }
 autoplay = "bob"
 
+[node name="Credits" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("transition")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_7yvar")
+transition = NodePath("../Transition")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="Lane" type="Label" parent="CanvasLayer/Credits/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_go73u")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 33
+text = "Lane McMartin
+Design, Programming, Art, Sound
+
+Huge Thank You To:"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Credits/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 23
+
+[node name="MainTheme" type="Label" parent="CanvasLayer/Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_go73u")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "Wolfgang_
+Main Theme
+(\"Bonus Round\")"
+horizontal_alignment = 1
+
+[node name="MenuTheme" type="Label" parent="CanvasLayer/Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_go73u")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "congusbongus
+Menu Theme
+(\"Two Left Socks\")"
+horizontal_alignment = 1
+
+[node name="Shader" type="Label" parent="CanvasLayer/Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_go73u")
+theme_override_colors/font_outline_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_constants/outline_size = 20
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 25
+text = "mackatap,
+DDRKirbyISQ, MatiasVME
+Transition Shader"
+horizontal_alignment = 1
+
+[node name="Return" type="TextureRect" parent="CanvasLayer/Credits/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_ehol2")
+stretch_mode = 3
+
+[node name="CreditsBG" type="Sprite2D" parent="CanvasLayer/Credits"]
+z_index = -2
+position = Vector2(320, 182)
+scale = Vector2(1.025, 1.03333)
+texture = ExtResource("14_ek6qw")
+offset = Vector2(0, 5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Credits"]
+libraries = {
+"": SubResource("AnimationLibrary_68bws")
+}
+autoplay = "bob"
+
 [node name="Transition" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -358,12 +498,16 @@ mouse_filter = 2
 color = Color(0.0941176, 0.0784314, 0.145098, 1)
 
 [connection signal="game_ended" from="LevelManager" to="CanvasLayer/TitleScreen" method="_on_level_manager_game_ended"]
+[connection signal="credits_pressed" from="CanvasLayer/TitleScreen" to="CanvasLayer/Credits" method="_on_title_screen_credits_pressed"]
 [connection signal="options_pressed" from="CanvasLayer/TitleScreen" to="CanvasLayer/Options" method="_on_title_screen_options_pressed"]
 [connection signal="start_pressed" from="CanvasLayer/TitleScreen" to="LevelManager" method="_on_title_screen_start_pressed"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart/Start" to="CanvasLayer/TitleScreen" method="_on_start_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/HBoxContainer/MarginContainerStart2/Options" to="CanvasLayer/TitleScreen" method="_on_options_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/TitleScreen/VBoxContainer/Credits" to="CanvasLayer/TitleScreen" method="_on_credits_gui_input"]
 [connection signal="return_pressed" from="CanvasLayer/Options" to="CanvasLayer/TitleScreen" method="_on_options_return_pressed"]
 [connection signal="gui_input" from="CanvasLayer/Options/VBoxContainer/OptionsMargin/Options" to="CanvasLayer/Options" method="_on_options_gui_input"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/SliderGrid/SFXSlider/TextureRect/MarginContainer/SFXSlider" to="CanvasLayer/Options" method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Options/VBoxContainer/SliderGrid/MusicSlider/TextureRect/MarginContainer/MusicSlider" to="CanvasLayer/Options" method="_on_music_slider_value_changed"]
 [connection signal="gui_input" from="CanvasLayer/Options/VBoxContainer/ReturnMargin/Return" to="CanvasLayer/Options" method="_on_return_gui_input"]
+[connection signal="return_pressed" from="CanvasLayer/Credits" to="CanvasLayer/TitleScreen" method="_on_credits_return_pressed"]
+[connection signal="gui_input" from="CanvasLayer/Credits/VBoxContainer/Return" to="CanvasLayer/Credits" method="_on_return_gui_input"]

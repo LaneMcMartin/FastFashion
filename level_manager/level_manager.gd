@@ -39,17 +39,18 @@ func _ready() -> void:
 func game_start() -> void:
 	# Reset parameters
 	level_difficulty = 1
-	level_quantity = 10
+	level_quantity = 5
 	correct_guesses = 0
 	
 	# Countdown
+	AudioManager.fade_music(3.0)
 	await countdown.start_countdown()
 	
 	# Show all
 	show_all()
 	
 	# Play music
-	AudioManager.play_music(AudioManager.BONUSGAME_BY_WOLFGANG_UNDERSCORE__ON_OPENGAMEART)
+	AudioManager.play_music(AudioManager.BONUSGAME_BY_WOLFGANG_UNDERSCORE_ON_OPENGAMEART)
 	
 	# Start the level
 	level_start()
@@ -60,14 +61,14 @@ func level_start() -> void:
 	level_difficulty += floor(correct_guesses / 10)
 	
 	# Set the level quantity
-	level_quantity += correct_guesses
+	level_quantity += 1
 	
 	# Set the time of day
-	if ((correct_guesses + 1) % 5) == 0:
+	if ((correct_guesses + 1) % 4) == 0:
 		toggle_time()
 	
 	# Set the timer
-	time_handler.start_timer(5 - (correct_guesses * 0.05))
+	time_handler.start_timer(7.5 - (correct_guesses * 0.075))
 	
 	# Set the sublevel (via the clothing object)
 	var random_clothing = randi_range(0, CompositeSprite.TYPE.size() + 1)
